@@ -21,15 +21,31 @@ server.get('/', (req, res) => {
 server.post('/api/friends', (req, res) => {
   const { firstName, lastName, age } = req.body;
   const newFriend = new friend(req.body);
-  // let err = newFriend.validateSync();
-  // if (firstName && lastName && age) {
-  // }
+  // TODO HANDLE STATUS CODE 500 ERRORS
   newFriend.save((err, friend) => {
     if (err) {
       res.status(400).json({errorMessage: err.message});
     } else {
       res.status(201).json(friend);
     }
+  })
+})
+
+server.get('/api/friends', (req, res) => {
+  friend.find({}).then((friends) => {
+    res.status(200).json(friends)
+  }).catch((error) => {
+    res.status(500).json({error: 'The information could not be retrieved.'})
+  })
+})
+
+server.get('/api/friends/:id', (req, res) => {
+  const id = req.params.id;
+  friend.findById(id).then((friend) => {
+    res.status(200).json(friend)
+  })
+  .catch((error) => {
+    res.status(404).json({error: 'The friend with the specified ID does not exist.'})
   })
 })
 

@@ -15,7 +15,11 @@ const FriendSchema = new mongoose.Schema({
     max: [120,'Age must be a whole number between 1 and 120'],
     required: [true, 'Please provide firstName, lastName and age for the friend.']
   },
-  createdOn: { type: Date, default: Date.now, required: true }
+  createdOn: {
+    type: Date,
+    default: Date.now,
+    required: [true, 'There was an error while saving the friend to the database']
+  }
 })
 
 const FriendModel = mongoose.model('Friend', FriendSchema);
