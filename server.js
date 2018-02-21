@@ -22,6 +22,7 @@ server.post('/api/friends', (req, res) => {
   const { firstName, lastName, age } = req.body;
   const newFriend = new friend(req.body);
   // TODO HANDLE STATUS CODE 500 ERRORS
+  // LOOK INTO .exec()
   newFriend.save((err, friend) => {
     if (err) {
       res.status(400).json({errorMessage: err.message});
@@ -40,13 +41,63 @@ server.get('/api/friends', (req, res) => {
 })
 
 server.get('/api/friends/:id', (req, res) => {
+  // check for null friend
+    // if null status(404).json({msg: not found})
+
   const id = req.params.id;
   friend.findById(id).then((friend) => {
+    // if (friend)
+    res.status(200).json(friend)
+    // else
+      // res.status(404).json({ message: 'not found'})
+  })
+  // this will be your 500 error
+  .catch((error) => {
+    // if error.name === 'CastError' {
+        //res.status(400)
+      // }  else diff error
+    res.status(404).json({message: 'The friend with the specified ID does not exist.'})
+  })
+})
+
+server.delete('/api/friends/:id', (req, res) => {
+  const id = req.params.id;
+  friend.findByIdAndRemove(id).then((friend) => {
     res.status(200).json(friend)
   })
   .catch((error) => {
-    res.status(404).json({error: 'The friend with the specified ID does not exist.'})
+    res.status(404).json({message: 'The friend with the specified ID does not exist.'})
   })
+})
+
+// server.put('/api/friends/:id', (req, res) => {
+//   const friendData = req.body;
+//   // const { firstName, lastName, age } = req.body;
+//   const id = req.params.id;
+
+//   friend.findByIdAndUpdate(id, friendData).then((updatedFriend) => {
+//     res.status(200).json(updatedFriend)
+//   })
+//   .catch((error) => {
+//     res.status(500).json({errorMessage: error.message});
+//   })
+// })
+
+server.put('/api/friends/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, age } req.body;
+
+  if (firstName && lastName && age) {
+    friend.findByIdAndUpdate(id, req.body)
+    .then(updatedFriend => {
+      if(updatedFriend) {
+        res.status(201).json(updatedFriend);
+      } else {
+        res.status(404).json({error: 'error message'});
+      }
+    })
+    .catch(err => )
+  }
 })
 
 mongoose
