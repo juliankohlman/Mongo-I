@@ -45,7 +45,7 @@ Configure the API to respond to the following routes:
 
 #### Endpoint Specifications
 
-When the client makes a `POST` request to `/api/friends`:
+### When the client makes a `POST` request to `/api/friends`:
 
 * If the request body is missing the `firstName`, `lastName` or `age` property:
 
@@ -70,14 +70,14 @@ When the client makes a `POST` request to `/api/friends`:
   * respond with HTTP status code `500` (Server Error).
   * return the following JSON object: `{ error: "There was an error while saving the friend to the database" }`.
 
-When the client makes a `GET` request to `/api/friends`:
+### When the client makes a `GET` request to `/api/friends`:
 
 * If there's an error in retrieving the _friends_ from the database:
   * cancel the request.
   * respond with HTTP status code `500`.
   * return the following JSON object: `{ error: "The information could not be retrieved." }`.
 
-When the client makes a `GET` request to `/api/friends/:id`:
+### When the client makes a `GET` request to `/api/friends/:id`:
 
 * If the _friend_ with the specified `id` is not found:
 
@@ -89,7 +89,7 @@ When the client makes a `GET` request to `/api/friends/:id`:
   * respond with HTTP status code `500`.
   * return the following JSON object: `{ error: "The information could not be retrieved." }`.
 
-When the client makes a `DELETE` request to `/api/friends/:id`:
+### When the client makes a `DELETE` request to `/api/friends/:id`:
 
 * If the _friend_ with the specified `id` is not found:
 
@@ -101,7 +101,7 @@ When the client makes a `DELETE` request to `/api/friends/:id`:
   * respond with HTTP status code `500`.
   * return the following JSON object: `{ error: "The friend could not be removed" }`.
 
-When the client makes a `PUT` request to `/api/friends/:id`:
+### When the client makes a `PUT` request to `/api/friends/:id`:
 
 * If the _friend_ with the specified `id` is not found:
 
