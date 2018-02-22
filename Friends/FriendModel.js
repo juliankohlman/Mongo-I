@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const FriendSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: [true, 'Please provide firstName, lastName and age for the friend.']
+    required: [true, 'Please provide a firstName for the friend.']
   },
   lastName: {
     type: String,
-    required: [true, 'Please provide firstName, lastName and age for the friend.']
+    required: [true, 'Please provide a lastName for the friend.']
   },
   age: {
     type: Number,
